@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TodoProvider } from '../contexts/TodoContext';
+import { ToastProvider } from '../components/Toast/ToastProvider';
 import { useTodo } from '../hooks/useTodo';
 // import { act } from 'react-dom/test-utils';
 
@@ -33,11 +34,20 @@ const TestComponent = () => {
 };
 
 describe('TodoContext', () => {
+  beforeEach(() => {
+    window.sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    window.sessionStorage.clear();
+  });
   it('provides empty todos array initially', () => {
     render(
-      <TodoProvider>
-        <TestComponent />
-      </TodoProvider>
+      <ToastProvider>
+        <TodoProvider>
+          <TestComponent />
+        </TodoProvider>
+      </ToastProvider>
     );
 
     expect(screen.getByTestId('todo-count').textContent).toBe('0');
@@ -47,9 +57,11 @@ describe('TodoContext', () => {
     const user = userEvent.setup();
 
     render(
-      <TodoProvider>
-        <TestComponent />
-      </TodoProvider>
+      <ToastProvider>
+        <TodoProvider>
+          <TestComponent />
+        </TodoProvider>
+      </ToastProvider>
     );
 
     await user.click(screen.getByTestId('add-todo'));
@@ -63,9 +75,11 @@ describe('TodoContext', () => {
     const user = userEvent.setup();
 
     render(
-      <TodoProvider>
-        <TestComponent />
-      </TodoProvider>
+      <ToastProvider>
+        <TodoProvider>
+          <TestComponent />
+        </TodoProvider>
+      </ToastProvider>
     );
 
     await user.click(screen.getByTestId('add-todo'));
@@ -90,9 +104,11 @@ describe('TodoContext', () => {
     const user = userEvent.setup();
 
     render(
-      <TodoProvider>
-        <TestComponent />
-      </TodoProvider>
+      <ToastProvider>
+        <TodoProvider>
+          <TestComponent />
+        </TodoProvider>
+      </ToastProvider>
     );
 
     await user.click(screen.getByTestId('add-todo'));
